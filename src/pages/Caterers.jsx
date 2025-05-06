@@ -1,11 +1,13 @@
 import React from 'react'
 
-export default function Caterers() {
+function Caterers() {
   return (
     <div>
         <h1>
-            Welcome to my
+            welcome to my pages
         </h1>
     </div>
   )
 }
+
+export default Caterers
