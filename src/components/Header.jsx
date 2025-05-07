@@ -1,20 +1,37 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Header({ onLoginClick }) {
   return (
-    <header className=" shadow-md p-4 flex justify-between items-center" style={{
-        backgroundColor:'#2D2D2D'
-    }}>
-      <h1 className="text-2xl font-bold text-orange-600">BITEBOOKED</h1>
+    <header
+      className=" shadow-md p-4 flex justify-between items-center"
+      style={{
+        backgroundColor: "#2D2D2D",
+      }}
+    >
+      <div className="flex gap-4">
+        <img src="/images/logo.jpeg" className="w-10 h-10"/>
+        <h1 className="text-2xl font-bold text-orange-600">BITEBOOKED</h1>
+      </div>
       <div className="flex gap-4 items-center">
-        <nav className="space-x-4" style={{
-            color:'white',
-            marginLeft:'50px'
-        }}>
-          <Link to="/" className="hover:text-orange-600">Home</Link>
-          <Link to="/about" className="hover:text-orange-600">About</Link>
-          <Link to="/caterers" className="hover:text-orange-600">Caterers</Link>
-          <Link to="/contact" className="hover:text-orange-600">Contact</Link>
+        <nav
+          className="space-x-6"
+          style={{
+            color: "white",
+            marginLeft: "50px",
+          }}
+        >
+          <Link to="/" className="hover:text-orange-600">
+            Home
+          </Link>
+          <Link to="/about" className="hover:text-orange-600">
+            About
+          </Link>
+          <Link to="/caterers" className="hover:text-orange-600">
+            Caterers
+          </Link>
+          <Link to="/contact" className="hover:text-orange-600">
+            Contact
+          </Link>
         </nav>
         <button
           onClick={onLoginClick}

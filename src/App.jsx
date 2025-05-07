@@ -12,6 +12,7 @@ import { useState } from 'react';
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [isLoggedIn,setIsLoggedIn]=useState(false);
+  // const[isSubmitted,setIsSubmitted]=useState(false);
   return (
     <>
       <Header isLoggedIn={isLoggedIn} onLoginClick={() => setShowModal(true)} />
