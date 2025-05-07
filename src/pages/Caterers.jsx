@@ -144,8 +144,6 @@ const Caterers = () => {
           )}
         </div>
       </section>
-
-      {/* Caterers List Section */}
       <section className="py-8">
         <div className="container mx-auto px-4">
           <h2 className="text-xl font-semibold mb-6">Top caterers in {searchTerm || 'Patiala'}:</h2>
