@@ -1,7 +1,7 @@
 function About() {
     return (
-      <div className=" text-white min-h-screen px-8 py-16" style={{
-        backgroundImage: "url('/images/About-bg.jpeg')",
+      <div className=" text-white min-h-screen px-8 py-16 bg-black" style={{
+        backgroundImage: "url('/images/About-bg.jpeg') bg-image",
       }}>
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-orange-600 mb-4">About Us</h1>
