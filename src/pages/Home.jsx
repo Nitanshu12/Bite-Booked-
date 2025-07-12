@@ -25,8 +25,8 @@ function Home() {
   return (
     <>
       <div
-        className="h-screen bg-cover bg-center flex flex-col relative overflow-hidden"
-        style={{ backgroundImage: "url('/images/hero-bg.png')" }}
+        className="h-screen flex flex-col relative overflow-hidden"
+        style={{ backgroundImage: "url('/images/hero-bg.png')", backgroundSize: "cover", backgroundPosition: "bottom" }}
       >
         {/* Spacer for fixed navbar */}
         <div className="h-20 w-full"></div>

@@ -1,5 +1,9 @@
+import Header from "../components/Header";
+
 function About() {
     return (
+      <>
+      <Header/>
       <div className=" text-white min-h-screen px-8 py-16 bg-black" style={{
         backgroundImage: "url('/images/About-bg.jpeg') bg-image",
       }}>
@@ -38,6 +42,7 @@ function About() {
           </div>
         </div>
       </div>
+      </>
     );
   }
   
