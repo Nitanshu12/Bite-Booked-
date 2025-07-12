@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 function Header({ onLoginClick }) {
   return (
     <header
-      className=" shadow-md p-4 flex justify-between items-center"
-      style={{
-        backgroundColor: "#2D2D2D",
-      }}
+      className="shadow-md p-4 flex justify-between items-center fixed w-full top-0 left-0 z-50 bg-transparent"
     >
       <div className="flex gap-4">
         <img src="/images/logo.jpeg" className="w-10 h-10"/>
@@ -14,11 +11,7 @@ function Header({ onLoginClick }) {
       </div>
       <div className="flex gap-4 items-center">
         <nav
-          className="space-x-6"
-          style={{
-            color: "white",
-            marginLeft: "50px",
-          }}
+          className="space-x-6 text-white ml-12"
         >
           <Link to="/" className="hover:text-orange-600">
             Home
