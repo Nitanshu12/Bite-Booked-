@@ -36,7 +36,7 @@ const Caterers = () => {
   return (
     <div className="bg-black min-h-screen text-white">
       <section className="py-8 bg-black">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 pt-25">
           <form onSubmit={handleSearch} className="relative rounded-full overflow-hidden shadow-lg max-w-2xl mx-auto">
             <input
               type="text"
@@ -110,7 +110,7 @@ const Caterers = () => {
             {filteredCaterers.map((caterer) => (
               <Link to={`/caterers/${caterer.id}`} key={caterer.id} className="group">
                 <div className=" rounded-lg overflow-hidden h-full hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300" style={{
-                    backgroundColor:'#2D2D2D'
+                    backgroundColor:'#ffffff'
                 }}>
                   <div className="h-40 bg-gray-700 relative">
                     <img src={caterer.logo} alt={caterer.name} className="w-full h-full object-cover" />

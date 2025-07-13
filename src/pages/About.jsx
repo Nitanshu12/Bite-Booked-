@@ -12,7 +12,8 @@ function About() {
           backgroundImage: "url('/images/About-bg.jpeg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
+          backgroundRepeat: "no-repeat",
+
         }}
       >
         <div className="absolute inset-0 bg-black/70 z-0"></div>

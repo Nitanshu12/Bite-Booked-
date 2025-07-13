@@ -11,18 +11,18 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const [userName, setUserName] = useState(() => localStorage.getItem('userName') || '');
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     if (!userName) {
-      const timer = setTimeout(() => setShowModal(true), 3000);
+      const timer = setTimeout(() => setShowModal(true), 2000);
       return () => clearTimeout(timer);
     }
   }, [userName]);
 
   const handleSignup = (name) => {
     setUserName(name);
-    localStorage.setItem('userName', name);
+    // localStorage.setItem('userName', name);
     setShowModal(false);
   };
 
