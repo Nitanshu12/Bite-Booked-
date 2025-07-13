@@ -6,16 +6,29 @@ import Caterers from './pages/Caterers.jsx';
 import Contact from './pages/Contact.jsx';
 import Header from './components/Header.jsx';
 import AuthModal from './components/AuthModal.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const [isLoggedIn,setIsLoggedIn]=useState(false);
-  // const[isSubmitted,setIsSubmitted]=useState(false);
+  const [userName, setUserName] = useState(() => localStorage.getItem('userName') || '');
+
+  useEffect(() => {
+    if (!userName) {
+      const timer = setTimeout(() => setShowModal(true), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [userName]);
+
+  const handleSignup = (name) => {
+    setUserName(name);
+    localStorage.setItem('userName', name);
+    setShowModal(false);
+  };
+
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} onLoginClick={() => setShowModal(true)} />
+      <Header userName={userName} onLoginClick={() => setShowModal(true)} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -25,10 +38,7 @@ function App() {
       {showModal && (
         <AuthModal
           onClose={() => setShowModal(false)}
-          onLoginSuccess={() => {
-            setIsLoggedIn(true);
-            setShowModal(false);
-          }}
+          onSignup={handleSignup}
         />
       )}
     </>

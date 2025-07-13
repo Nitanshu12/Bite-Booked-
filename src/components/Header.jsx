@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Header({ onLoginClick }) {
+function Header({ userName, onLoginClick }) {
   return (
     <header className="shadow-md px-4 md:px-10 py-3 flex items-center justify-between w-full fixed top-0 left-0 z-50 bg-transparent">
       {/* Left: Logo */}
@@ -17,14 +17,18 @@ function Header({ onLoginClick }) {
         <Link to="/contact" className="hover:text-orange-600 font-medium">Contact</Link>
       </nav>
 
-      {/* Right: Login button */}
+      {/* Right: User name or Login button */}
       <div>
-        <button
-          onClick={onLoginClick}
-          className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition"
-        >
-          Login
-        </button>
+        {userName ? (
+          <span className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium shadow">{userName}</span>
+        ) : (
+          <button
+            onClick={onLoginClick}
+            className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition"
+          >
+            Login
+          </button>
+        )}
       </div>
     </header>
   );
