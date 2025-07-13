@@ -4,20 +4,18 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuoteForm from '../components/QuoteForm.jsx';
 import catererData from '../data/catererData';
+
 function Home() {
   const navigate = useNavigate();
   const [showQuoteModal, setShowQuoteModal] = useState(false);
 
   // Filtering logic based on answers from the quote form
   const filterCaterers = (answers) => {
-    // Example: filter by cuisine, veg/non-veg, and budget if present in answers
     return catererData.filter(caterer => {
-      // You can expand this logic as needed
       let match = true;
       if (answers.cuisine && answers.cuisine.length > 0) {
         match = match && answers.cuisine.some(cuisine => caterer.specialty.toLowerCase().includes(cuisine.toLowerCase()));
       }
-      // Add more filtering as needed (e.g., location, budget, etc.)
       return match;
     });
   };
@@ -25,34 +23,46 @@ function Home() {
   return (
     <>
       <div
-        className="h-screen flex flex-col relative overflow-hidden"
-        style={{ backgroundImage: "url('/images/hero-bg.png')", backgroundSize: "cover", backgroundPosition: "bottom" }}
+        className="h-screen bg-cover bg-center flex flex-col items-center justify-center relative"
+        style={{ backgroundImage: "url('/images/hero-bg.png')" }}
       >
-        {/* Spacer for fixed navbar */}
-        <div className="h-20 w-full"></div>
-        <section className="w-full flex flex-col items-center text-center pt-24">
-          <div className="flex flex-col items-center w-full max-w-xl gap-2">
-            <div className="flex items-center bg-white text-black rounded-full px-6 py-3 mb-8 shadow-md gap-4 w-full">
-              <Search className="h-5 w-5 text-gray-500" />
-              <input
-                type="text"
-                placeholder="Search Caterers..."
-                className="flex-1 outline-none border-none bg-transparent text-lg"
-              />
-              <SlidersHorizontal className="h-5 w-5 text-gray-500" />
-            </div>
-            <h1 className="text-3xl font-extrabold mb-4 text-orange-500 tracking-wide">BITEBOOKED</h1>
-            <p className="text-lg text-white font-medium mb-1">
-              Your Event. Our Caterers. Perfectly Served.
-            </p>
-            <p className="text-base text-white mb-6">
-              “Book a Bite, Make it Right.”
-            </p>
-            <button className="bg-orange-500 text-white px-8 py-3 rounded-md cursor-pointer text-lg font-semibold shadow-lg hover:bg-orange-600 transition-all duration-150" onClick={() => setShowQuoteModal(true)}>
-              Request a Quote
-            </button>
+        <div className="absolute inset-0 bg-black/60 z-10"></div>
+        <div className="flex flex-col items-center justify-center text-center px-2 sm:px-4 gap-3 z-20 relative w-full pt-40"
+             style={{ minHeight: '70vh' }}>
+          {/* Responsive margin top for hero section */}
+          <div className="mt-12 sm:mt-24 md:mt-36 lg:mt-[-450px]" />
+          
+          {/* Search bar, now responsive */}
+          <div
+            className="flex items-center bg-white text-black rounded-full px-2 sm:px-4 py-2 mb-6 shadow-md gap-2 sm:gap-4 w-full max-w-[95vw] sm:max-w-lg"
+          >
+            <Search className="h-5 w-5 text-gray-500" />
+            <input
+              type="text"
+              placeholder="Search Caterers..."
+              className="flex-1 outline-none border-none bg-transparent text-sm sm:text-base"
+            />
+            <SlidersHorizontal className="h-5 w-5 text-gray-500" />
           </div>
-        </section>
+
+          {/* Headings, now responsive */}
+          <h1 className="text-2xl sm:text-4xl font-bold mb-2 sm:mb-4 text-orange-500 drop-shadow">
+            BITEBOOKED
+          </h1>
+          <p className="text-base sm:text-lg text-white font-medium">
+            Your Event. Our Caterers. Perfectly Served.
+          </p>
+          <p className="text-xs sm:text-sm mt-1 text-white opacity-90">
+            “Book a Bite, Make it Right.”
+          </p>
+          {/* Responsive button */}
+          <button
+            className="bg-orange-500 text-white px-6 py-2 sm:px-8 sm:py-2 rounded-md cursor-pointer mt-4 text-base sm:text-lg font-semibold shadow hover:bg-orange-600 transition"
+            onClick={() => setShowQuoteModal(true)}
+          >
+            Request a Quote
+          </button>
+        </div>
       </div>
       <AnimatePresence>
         {showQuoteModal && (
