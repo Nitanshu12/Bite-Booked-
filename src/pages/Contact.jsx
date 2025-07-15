@@ -3,7 +3,13 @@ import { motion } from 'framer-motion';
 
 function Contact() {
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+    <motion.div
+      className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+    >
       {/* Background overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -44,7 +50,11 @@ function Contact() {
             transition={{ delay: 0.3, duration: 0.7, ease: 'easeOut' }}
             onSubmit={e => { e.preventDefault(); alert('Thank you for contacting us!'); }}
           >
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.6, ease: 'easeOut' }}
+            >
               <label className="block text-sm text-gray-400 mb-1">Name</label>
               <input
                 type="text"
@@ -52,8 +62,12 @@ function Contact() {
                 className="w-full p-3 rounded-lg bg-[#181818] text-white border border-gray-700 focus:border-orange-500 focus:outline-none transition"
                 placeholder="Your Name"
               />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5, duration: 0.6, ease: 'easeOut' }}
+            >
               <label className="block text-sm text-gray-400 mb-1">Email</label>
               <input
                 type="email"
@@ -61,8 +75,12 @@ function Contact() {
                 className="w-full p-3 rounded-lg bg-[#181818] text-white border border-gray-700 focus:border-orange-500 focus:outline-none transition"
                 placeholder="you@example.com"
               />
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6, ease: 'easeOut' }}
+            >
               <label className="block text-sm text-gray-400 mb-1">Message</label>
               <textarea
                 required
@@ -70,19 +88,22 @@ function Contact() {
                 className="w-full p-3 rounded-lg bg-[#181818] text-white border border-gray-700 focus:border-orange-500 focus:outline-none transition resize-none"
                 placeholder="Type your message..."
               />
-            </div>
+            </motion.div>
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
               className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg shadow transition text-lg mt-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.7, ease: 'easeOut' }}
             >
               Send Message
             </motion.button>
           </motion.form>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
