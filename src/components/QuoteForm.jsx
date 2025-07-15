@@ -4,39 +4,50 @@ import { useNavigate } from "react-router-dom";
 const questions = [
   {
     key: "eventType",
-    label: "What type of event is this?",
-    options: ["Wedding", "Birthday", "Corporate", "Other"]
+    label: "What type of event are you hosting?",
+    options: ["Wedding", "Birthday", "Corporate", "Anniversary", "Engagement", "Other"]
   },
   {
-    key: "date",
+    key: "eventDate",
     label: "When is your event?",
     type: "date"
   },
   {
-    key: "guests",
-    label: "How many guests?",
-    options: ["0-50", "50-100", "100-200", "200+"]
+    key: "guestCount",
+    label: "Expected number of guests?",
+    options: ["Up to 50", "51-100", "101-200", "201-400", "400+"]
   },
   {
     key: "cuisine",
-    label: "Cuisine Preferences",
-    options: ["Indian", "Chinese", "Continental", "South Indian", "Vegan"],
+    label: "Preferred cuisines?",
+    options: ["North Indian", "Punjabi", "South Indian", "Chinese", "Continental", "Mexican", "Italian", "Vegan", "Healthy", "Bengali", "Street Food"],
     multi: true
   },
   {
-    key: "Type of Dishes",
-    label: "Veg/Non-Veg?",
-    options: ["Veg", "Non-Veg", "Both"]
+    key: "dishType",
+    label: "Veg/Non-Veg dishes required?",
+    options: ["Veg Only", "Non-Veg Only", "Both Veg & Non-Veg"]
+  },
+  {
+    key: "serviceType",
+    label: "Type of Service?",
+    options: ["Buffet", "Plated Meal", "Live Counters", "Snacks Only", "Full Service"]
   },
   {
     key: "budget",
-    label: "Budget per plate (₹)",
-    options: ["200", "300", "400", "500"]
+    label: "Budget per guest (approx)?",
+    options: ["Below ₹400", "₹400–₹800", "₹800–₹1200", "₹1200+"]
   },
   {
-    key: "Location for event",
-    label: "Budget friendly locations",
-    options: ["Patiala", "Amritsar", "Delhi", "Noida"]
+    key: "location",
+    label: "Event Location",
+    options: ["Patiala", "Amritsar", "Delhi", "Ludhiana", "Sonipat", "Chandigarh", "Noida", "Gurgaon"]
+  },
+  {
+    key: "specialNeeds",
+    label: "Any special dietary requirements?",
+    options: ["Jain Food", "Gluten Free", "Sugar Free", "No Onion/Garlic", "None"],
+    multi: true
   }
 ];
 
