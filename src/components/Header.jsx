@@ -93,9 +93,9 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
             <svg className="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
             {/* Dropdown */}
             {dropdownOpen && (
-              <div className="absolute right-0 mt-3 bg-white rounded shadow-lg py-2 px-4 z-50 min-w-[150px] flex flex-col gap-2 animate-fade-in">
-                <Link to="/dashboard" className="text-orange-600 font-semibold hover:underline w-full text-left">Dashboard</Link>
-                <button onClick={onLogout} className="text-red-600 font-medium hover:underline w-full text-left">Logout</button>
+              <div className="absolute right-0 mt-26 bg-[#2D2D2D] rounded shadow-lg py-2 px-4 z-50 min-w-[150px] flex flex-col gap-2 animate-fade-in">
+                <Link to="/dashboard" className="text-orange-600 font-semibold hover:underline w-full text-left" >Dashboard</Link>
+                <button onClick={onLogout} className="text-orange-600 font-medium hover:underline w-full text-left">Logout</button>
               </div>
             )}
           </div>

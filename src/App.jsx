@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import Dashboard from './pages/Dashboard.jsx';
+import CatererDetail from './pages/CatererDetail.jsx';
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/caterers" element={<Caterers />} />
+          <Route path="/caterers/:id" element={<CatererDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
