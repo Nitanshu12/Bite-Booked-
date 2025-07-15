@@ -8,6 +8,7 @@ import Header from './components/Header.jsx';
 import { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import Dashboard from './pages/Dashboard.jsx';
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/caterers" element={<Caterers />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path='/dashboard' element={<Dashboard/>}/>
         </Routes>
       </div>
       {showModal && !user && (

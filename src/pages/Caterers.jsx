@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, MapPin, SlidersHorizontal, Star } from 'lucide-react';
+import { Search, MapPin, SlidersHorizontal, Star, Heart } from 'lucide-react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import catererData from '../data/catererData';
@@ -27,6 +27,26 @@ const Caterers = () => {
   // If navigated from QuoteForm, get filtered caterers and criteria from state
   const filteredFromState = location.state?.filtered;
   const criteria = location.state?.criteria;
+
+  // Wishlist state
+  const [wishlist, setWishlist] = useState(() => {
+    return JSON.parse(localStorage.getItem('wishlistCaterers') || '[]');
+  });
+
+  // Helper to check if caterer is in wishlist
+  const isWishlisted = (caterer) => wishlist.some(c => c.id === caterer.id);
+
+  // Toggle wishlist
+  const toggleWishlist = (caterer) => {
+    let updated;
+    if (isWishlisted(caterer)) {
+      updated = wishlist.filter(c => c.id !== caterer.id);
+    } else {
+      updated = [...wishlist, caterer];
+    }
+    setWishlist(updated);
+    localStorage.setItem('wishlistCaterers', JSON.stringify(updated));
+  };
 
   useEffect(() => {
     const search = searchParams.get('search');
@@ -100,8 +120,16 @@ const Caterers = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
       whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,140,0,0.15)' }}
-      className="h-full"
+      className="h-full relative"
     >
+      {/* Heart icon */}
+      <button
+        className={`absolute top-3 right-3 z-20 bg-black/60 rounded-full p-2 transition-all duration-150 ${isWishlisted(caterer) ? 'text-orange-500' : 'text-gray-300 hover:text-orange-400'}`}
+        onClick={e => { e.preventDefault(); toggleWishlist(caterer); }}
+        aria-label={isWishlisted(caterer) ? 'Remove from wishlist' : 'Add to wishlist'}
+      >
+        <Heart fill={isWishlisted(caterer) ? '#f97316' : 'none'} strokeWidth={2.2} className="w-6 h-6" />
+      </button>
       <Link to={`/caterers/${caterer.id}`} className="group h-full block">
         <div className="rounded-lg overflow-hidden h-full hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 bg-[#4F4E4E] flex flex-col">
           <div className="h-40 bg-gray-700 relative flex items-center justify-center">

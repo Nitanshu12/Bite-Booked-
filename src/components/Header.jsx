@@ -68,16 +68,33 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
       <div className="hidden md:block relative">
         {userAvatar && !userName ? (
           // Google user: show only avatar
-          <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full border-2 border-orange-500 shadow cursor-pointer" onClick={() => setDropdownOpen(v => !v)} />
+          <div
+            className="relative"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full border-2 border-orange-500 shadow cursor-pointer" />
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-3 bg-white rounded shadow-lg py-2 px-4 z-50 min-w-[150px] flex flex-col gap-2 animate-fade-in">
+                <Link to="/dashboard" className="text-orange-600 font-semibold hover:underline w-full text-left">Dashboard</Link>
+                <button onClick={onLogout} className="text-red-600 font-medium hover:underline w-full text-left">Logout</button>
+              </div>
+            )}
+          </div>
         ) : userName ? (
           // Manual user: show name (and avatar if present)
-          <div className="flex items-center gap-2 cursor-pointer select-none" onClick={() => setDropdownOpen(v => !v)}>
+          <div
+            className="flex items-center gap-2 cursor-pointer select-none relative"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
             {userAvatar && <img src={userAvatar} alt={userName} className="w-9 h-9 rounded-full border-2 border-orange-500 shadow" />}
             <span className="bg-orange-600 text-white px-4 py-2 rounded-full font-medium shadow">{userName}</span>
             <svg className="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
             {/* Dropdown */}
             {dropdownOpen && (
-              <div className="absolute right-0 mt-12 bg-white rounded shadow-lg py-2 px-4 z-50 min-w-[120px]">
+              <div className="absolute right-0 mt-3 bg-white rounded shadow-lg py-2 px-4 z-50 min-w-[150px] flex flex-col gap-2 animate-fade-in">
+                <Link to="/dashboard" className="text-orange-600 font-semibold hover:underline w-full text-left">Dashboard</Link>
                 <button onClick={onLogout} className="text-red-600 font-medium hover:underline w-full text-left">Logout</button>
               </div>
             )}

@@ -58,7 +58,7 @@ function About() {
         >
           {/* Card 1 */}
           <motion.div
-            className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto"
+            className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto w-full"
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
@@ -75,7 +75,7 @@ function About() {
           </motion.div>
           {/* Card 2 */}
           <motion.div
-            className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto"
+            className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto w-full"
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
@@ -88,7 +88,7 @@ function About() {
           </motion.div>
           {/* Card 3 */}
           <motion.div
-            className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto"
+            className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto w-full"
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
