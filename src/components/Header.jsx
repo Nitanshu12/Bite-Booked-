@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-function Header({ userName, onLoginClick }) {
+function Header({ userName, userAvatar, onLoginClick, onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
     <header className="shadow-md px-4 md:px-10 py-3 flex items-center justify-between w-full fixed top-0 left-0 z-50 bg-transparent pt-5">
       {/* Left: Logo */}
@@ -39,9 +40,13 @@ function Header({ userName, onLoginClick }) {
             <Link to="/caterers" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>Caterers</Link>
             <Link to="/contact" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>Contact</Link>
           </nav>
-          <div className="mt-10">
+          <div className="mt-10 flex flex-col items-center gap-3">
             {userName ? (
-              <span className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium shadow">{userName}</span>
+              <>
+                {userAvatar && <img src={userAvatar} alt={userName} className="w-12 h-12 rounded-full border-2 border-orange-500 shadow mb-2" />}
+                <span className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium shadow mb-2">{userName}</span>
+                <button onClick={() => { setMenuOpen(false); onLogout(); }} className="text-red-400 font-medium hover:underline">Logout</button>
+              </>
             ) : (
               <button
                 onClick={() => { setMenuOpen(false); onLoginClick(); }}
@@ -54,10 +59,20 @@ function Header({ userName, onLoginClick }) {
         </div>
       )}
 
-      {/* Right: User name or Login button (desktop only) */}
-      <div className="hidden md:block">
+      {/* Right: User avatar/name or Login button (desktop only) */}
+      <div className="hidden md:block relative">
         {userName ? (
-          <span className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium shadow">{userName}</span>
+          <div className="flex items-center gap-2 cursor-pointer select-none" onClick={() => setDropdownOpen(v => !v)}>
+            {userAvatar && <img src={userAvatar} alt={userName} className="w-9 h-9 rounded-full border-2 border-orange-500 shadow" />}
+            <span className="bg-orange-600 text-white px-4 py-2 rounded-full font-medium shadow">{userName}</span>
+            <svg className="w-4 h-4 ml-1 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+            {/* Dropdown */}
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-12 bg-white rounded shadow-lg py-2 px-4 z-50 min-w-[120px]">
+                <button onClick={onLogout} className="text-red-600 font-medium hover:underline w-full text-left">Logout</button>
+              </div>
+            )}
+          </div>
         ) : (
           <button
             onClick={onLoginClick}

@@ -34,7 +34,7 @@ const Caterers = () => {
       );
 
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-black min-h-screen text-white pt-12">
       <section className="py-8 bg-black">
         <div className="container mx-auto px-4 pt-25">
           <form onSubmit={handleSearch} className="relative rounded-full overflow-hidden shadow-lg max-w-2xl mx-auto">

@@ -24,7 +24,7 @@ const questions = [
     multi: true
   },
   {
-    key: "veg",
+    key: "Type of Dishes",
     label: "Veg/Non-Veg?",
     options: ["Veg", "Non-Veg", "Both"]
   },
@@ -32,6 +32,11 @@ const questions = [
     key: "budget",
     label: "Budget per plate (₹)",
     options: ["200", "300", "400", "500"]
+  },
+  {
+    key: "Location for event",
+    label: "Budget friendly locations",
+    options: ["Patiala", "Amritsar", "Delhi", "Noida"]
   }
 ];
 

@@ -103,17 +103,7 @@ function About() {
             </p>
           </motion.div>
         </motion.div>
-        {/* Down arrow */}
-        <motion.div
-          className="flex justify-center w-full"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.7, ease: 'easeOut' }}
-        >
-          <div className="rounded-full bg-orange-600 w-10 h-10 flex items-center justify-center text-2xl text-white animate-bounce cursor-pointer shadow mt-2">
-            <span>⌄</span>
-          </div>
-        </motion.div>
+        
       </section>
     </>
   );
