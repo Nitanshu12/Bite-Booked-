@@ -8,10 +8,19 @@ function getRandomItems(arr, n) {
   return shuffled.slice(0, n);
 }
 
+const cuisineOptions = [
+  'Punjabi', 'North Indian', 'South Indian', 'Chinese', 'Continental', 'Mexican', 'Vegan', 'Healthy', 'Bengali', 'Street Food', 'Tandoori', 'Jain Food', 'Sweets', 'Multi-cuisine', 'Indian', 'Snacks'
+];
+const ratingOptions = ['Any Rating', '4.5 & Above', '4.0 & Above', '3.5 & Above'];
+const priceOptions = ['Any Price', 'Budget', 'Mid-range', 'Premium'];
+
 const Caterers = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
   const [showFilters, setShowFilters] = useState(false);
+  const [selectedCuisine, setSelectedCuisine] = useState('All Cuisines');
+  const [selectedRating, setSelectedRating] = useState('Any Rating');
+  const [selectedPrice, setSelectedPrice] = useState('Any Price');
   const location = useLocation();
 
   // If navigated from QuoteForm, get filtered caterers and criteria from state
@@ -25,13 +34,45 @@ const Caterers = () => {
     }
   }, [searchParams]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearchParams(searchTerm ? { search: searchTerm } : {});
+  // Filtering logic for recommendations
+  const getFilteredCaterers = () => {
+    let data = catererData;
+    // If coming from QuoteForm and no filters/search are active, use filteredFromState
+    if (filteredFromState && !searchTerm && selectedCuisine === 'All Cuisines' && selectedRating === 'Any Rating' && selectedPrice === 'Any Price') {
+      data = filteredFromState;
+    }
+    // Otherwise, filter based on search/filters
+    else {
+      data = catererData.filter(caterer => {
+        let match = true;
+        // Search term
+        if (searchTerm) {
+          match = match && (
+            caterer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            caterer.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            caterer.specialty.some(s => s.toLowerCase().includes(searchTerm.toLowerCase()))
+          );
+        }
+        // Cuisine
+        if (selectedCuisine !== 'All Cuisines') {
+          match = match && caterer.specialty.map(s => s.toLowerCase()).includes(selectedCuisine.toLowerCase());
+        }
+        // Rating
+        if (selectedRating !== 'Any Rating') {
+          const minRating = parseFloat(selectedRating.split(' ')[0]);
+          match = match && caterer.rating >= minRating;
+        }
+        // Price
+        if (selectedPrice !== 'Any Price') {
+          match = match && caterer.priceRange === selectedPrice;
+        }
+        return match;
+      });
+    }
+    return data;
   };
 
-  // Recommendations: first 3 from filtered caterers (from QuoteForm)
-  const recommendations = filteredFromState ? filteredFromState.slice(0, 3) : catererData.slice(0, 3);
+  const recommendations = getFilteredCaterers().slice(0, 3);
 
   // Top caterers in location: next 3 filtered by location from criteria
   let locationCaterers = [];
@@ -54,7 +95,7 @@ const Caterers = () => {
   // Card component for reuse
   const CatererCard = ({ caterer }) => (
     <Link to={`/caterers/${caterer.id}`} className="group">
-      <div className="rounded-lg overflow-hidden h-full hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 bg-white flex flex-col">
+      <div className="rounded-lg overflow-hidden h-full hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 bg-[#4F4E4E] flex flex-col">
         <div className="h-40 bg-gray-700 relative flex items-center justify-center">
           <img src={caterer.logo} alt={caterer.name} className="w-full h-full object-cover" />
         </div>
@@ -71,7 +112,7 @@ const Caterers = () => {
             </div>
           </div>
           <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
-            <span className="text-xs text-gray-500">{caterer.specialty}</span>
+            <span className="text-xs text-gray-500">{caterer.specialty.join(', ')}</span>
             <span className="text-orange-500 text-sm">more &rsaquo;</span>
           </div>
         </div>
@@ -86,7 +127,7 @@ const Caterers = () => {
           src="/images/Group 14.png"
           alt="background"
           className="w-full h-full object-cover object-center"
-          style={{ filter: 'brightness(0.5)' }}
+          style={{ filter: 'brightness(0.6)' }}
         />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
@@ -94,7 +135,7 @@ const Caterers = () => {
         {/* Search and filters */}
         <section className="py-4">
           <div className="max-w-5xl mx-auto px-2 md:px-0">
-            <form onSubmit={handleSearch} className="relative rounded-full overflow-hidden shadow-lg max-w-2xl mx-auto mb-8">
+            <form onSubmit={e => { e.preventDefault(); }} className="relative rounded-full overflow-hidden shadow-lg max-w-2xl mx-auto mb-8">
               <input
                 type="text"
                 placeholder="Search caterers by name or location..."
@@ -107,10 +148,10 @@ const Caterers = () => {
               </div>
               <button
                 type="button"
-                className="absolute inset-y-0 right-0 pr-4 flex items-center"
+                className={`absolute inset-y-0 right-0 pr-4 flex items-center ${showFilters ? 'text-orange-500' : 'text-[#2D2D2D]'}`}
                 onClick={() => setShowFilters(!showFilters)}
               >
-                <SlidersHorizontal className="h-5 w-5 text-gray-500" />
+                <SlidersHorizontal className="h-5 w-5" />
               </button>
             </form>
             {showFilters && (
@@ -118,37 +159,27 @@ const Caterers = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Cuisine Type</label>
-                    <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md">
+                    <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md" value={selectedCuisine} onChange={e => setSelectedCuisine(e.target.value)}>
                       <option>All Cuisines</option>
-                      <option>Punjabi</option>
-                      <option>North Indian</option>
-                      <option>South Indian</option>
-                      <option>Chinese</option>
-                      <option>Continental</option>
+                      {cuisineOptions.map(opt => <option key={opt}>{opt}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Rating</label>
-                    <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md">
-                      <option>Any Rating</option>
-                      <option>4.5 & Above</option>
-                      <option>4.0 & Above</option>
-                      <option>3.5 & Above</option>
+                    <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md" value={selectedRating} onChange={e => setSelectedRating(e.target.value)}>
+                      {ratingOptions.map(opt => <option key={opt}>{opt}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-400 mb-1">Price Range</label>
-                    <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md">
-                      <option>Any Price</option>
-                      <option>Budget</option>
-                      <option>Mid-range</option>
-                      <option>Premium</option>
+                    <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md" value={selectedPrice} onChange={e => setSelectedPrice(e.target.value)}>
+                      {priceOptions.map(opt => <option key={opt}>{opt}</option>)}
                     </select>
                   </div>
                 </div>
                 <div className="mt-4 flex justify-end">
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">
-                    Apply Filters
+                  <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md" onClick={() => setShowFilters(false)}>
+                    Close Filters
                   </button>
                 </div>
               </div>

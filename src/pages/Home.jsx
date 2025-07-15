@@ -1,23 +1,21 @@
-import { Search, SlidersHorizontal } from 'lucide-react';
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { Search } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import QuoteForm from '../components/QuoteForm.jsx';
 import catererData from '../data/catererData';
 
 function Home() {
-  const navigate = useNavigate();
   const [showQuoteModal, setShowQuoteModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
-  // Filtering logic based on answers from the quote form
-  const filterCaterers = (answers) => {
-    return catererData.filter(caterer => {
-      let match = true;
-      if (answers.cuisine && answers.cuisine.length > 0) {
-        match = match && answers.cuisine.some(cuisine => caterer.specialty.toLowerCase().includes(cuisine.toLowerCase()));
-      }
-      return match;
-    });
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/caterers?search=${encodeURIComponent(searchTerm.trim())}`);
+    }
   };
 
   return (
@@ -31,20 +29,20 @@ function Home() {
              style={{ minHeight: '70vh' }}>
           {/* Responsive margin top for hero section */}
           <div className="mt-12 sm:mt-24 md:mt-36 lg:mt-[-450px]" />
-          
-          {/* Search bar, now responsive */}
-          <div
-            className="flex items-center bg-white text-black rounded-full px-2 sm:px-4 py-2 mb-6 shadow-md gap-2 sm:gap-4 w-full max-w-[95vw] sm:max-w-lg"
+          {/* Search bar only (no filter icon) */}
+          <form
+            className="flex items-center bg-white text-black rounded-full px-2 sm:px-4 py-2 mb-6 shadow-md gap-2 sm:gap-4 w-full max-w-[95vw] sm:max-w-lg relative"
+            onSubmit={handleSearchSubmit}
           >
             <Search className="h-5 w-5 text-gray-500" />
             <input
               type="text"
-              placeholder="Search Caterers..."
+              placeholder="Search Caterers by name or location..."
               className="flex-1 outline-none border-none bg-transparent text-sm sm:text-base"
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
             />
-            <SlidersHorizontal className="h-5 w-5 text-gray-500" />
-          </div>
-
+          </form>
           {/* Headings, now responsive */}
           <h1 className="text-2xl sm:text-4xl font-bold mb-2 sm:mb-4 text-orange-500 drop-shadow">
             BITEBOOKED
