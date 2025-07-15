@@ -1,10 +1,8 @@
-import Header from "../components/Header";
 import { motion } from "framer-motion";
 
 function About() {
   return (
     <>
-      <Header />
       {/* Hero Section with background image */}
       <section
         className="relative w-full"
@@ -13,7 +11,6 @@ function About() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-
         }}
       >
         <div className="absolute inset-0 bg-black/70 z-0"></div>
@@ -42,7 +39,7 @@ function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.7, ease: 'easeOut' }}
           >
-            GET STARTED
+            Request a Quote
           </motion.button>
         </div>
       </section>
