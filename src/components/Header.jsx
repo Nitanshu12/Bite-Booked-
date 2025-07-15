@@ -6,12 +6,13 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
     <header className="shadow-md px-4 md:px-10 py-3 flex items-center justify-between w-full fixed top-0 left-0 z-50 pt-5" style={{
-      backgroundColor:"#121111"
+      backgroundColor: "#121111"
     }}>
-      <div className="flex items-center gap-3">
+      {/* Left: Logo and Brand as a single link */}
+      <Link to="/" className="flex items-center gap-3 group focus:outline-none">
         <img src="/images/logo.jpeg" className="w-10 h-10" alt="Logo" />
         <h1 className="text-2xl font-bold text-orange-600">BITEBOOKED</h1>
-      </div>
+      </Link>
 
       {/* Center: Nav links (hidden on mobile) */}
       <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 gap-8 text-white hidden md:flex">
