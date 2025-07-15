@@ -43,7 +43,10 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
             <Link to="/contact" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>Contact</Link>
           </nav>
           <div className="mt-10 flex flex-col items-center gap-3">
-            {userName ? (
+            {userAvatar && !userName ? (
+              // Google user: show only avatar
+              <img src={userAvatar} alt="User Avatar" className="w-12 h-12 rounded-full border-2 border-orange-500 shadow mb-2" />
+            ) : userName ? (
               <>
                 {userAvatar && <img src={userAvatar} alt={userName} className="w-12 h-12 rounded-full border-2 border-orange-500 shadow mb-2" />}
                 <span className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium shadow mb-2">{userName}</span>
@@ -63,7 +66,11 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
 
       {/* Right: User avatar/name or Login button (desktop only) */}
       <div className="hidden md:block relative">
-        {userName ? (
+        {userAvatar && !userName ? (
+          // Google user: show only avatar
+          <img src={userAvatar} alt="User Avatar" className="w-10 h-10 rounded-full border-2 border-orange-500 shadow cursor-pointer" onClick={() => setDropdownOpen(v => !v)} />
+        ) : userName ? (
+          // Manual user: show name (and avatar if present)
           <div className="flex items-center gap-2 cursor-pointer select-none" onClick={() => setDropdownOpen(v => !v)}>
             {userAvatar && <img src={userAvatar} alt={userName} className="w-9 h-9 rounded-full border-2 border-orange-500 shadow" />}
             <span className="bg-orange-600 text-white px-4 py-2 rounded-full font-medium shadow">{userName}</span>
