@@ -9,7 +9,7 @@ import React from 'react';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID_HERE">
+    <GoogleOAuthProvider clientId="285885387110-agck3f9vlcsusopcns76adm7rmrj6rbr.apps.googleusercontent.com">
       <BrowserRouter>
         <App />
       </BrowserRouter>
