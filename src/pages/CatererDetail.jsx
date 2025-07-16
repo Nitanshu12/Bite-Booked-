@@ -39,21 +39,23 @@ export default function CatererDetail() {
       {/* Description */}
       <div className="max-w-4xl mx-auto px-4 md:px-0 mt-10">
         <p className="text-gray-200 text-base md:text-lg mb-6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Lorem ipsum dolor sit amet consectetur adipisicing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus..
+          {caterer.description}
         </p>
         <p className="text-gray-200 text-base md:text-lg mb-10">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus..
+          {/* Optionally, you can add more details here or remove this paragraph if not needed */}
         </p>
         {/* Services */}
         <div className="mb-10">
           <h2 className="text-2xl font-semibold mb-4 text-white">Services:</h2>
-          <ul className="list-disc list-inside space-y-2 text-gray-200">
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit Ut et massa mi. Aliquam</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit Ut et massa mi. Aliquam</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit Ut et massa mi. Aliquam</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit Ut et massa mi. Aliquam</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit Ut et massa mi. Aliquam</li>
-          </ul>
+          {Array.isArray(caterer.services) && caterer.services.length > 0 ? (
+            <ul className="list-disc list-inside space-y-2 text-gray-200">
+              {caterer.services.map((service, idx) => (
+                <li key={idx}>{service}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-400">Service details coming soon.</p>
+          )}
         </div>
         {/* Gallery */}
         <div className="mb-16">
