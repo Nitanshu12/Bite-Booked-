@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import catererData from '../data/catererData';
 import { Star } from 'lucide-react';
+import React, { useState } from 'react';
 
 const galleryImages = [
   '/images/16.png',
@@ -12,6 +13,20 @@ const galleryImages = [
 export default function CatererDetail() {
   const { id } = useParams();
   const caterer = catererData.find(c => c.id === Number(id));
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  function handleBookBite() {
+    // Add order to localStorage
+    const prevOrders = JSON.parse(localStorage.getItem('orderedCaterers') || '[]');
+    // Avoid duplicate orders for same caterer (optional)
+    const alreadyOrdered = prevOrders.some(o => o.id === caterer.id);
+    if (!alreadyOrdered) {
+      prevOrders.push({ ...caterer, orderedAt: new Date().toISOString() });
+      localStorage.setItem('orderedCaterers', JSON.stringify(prevOrders));
+    }
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 2000); // Auto-close after 2s
+  }
 
   if (!caterer) return <div className="text-center text-red-500 mt-32">Caterer not found.</div>;
 
@@ -32,7 +47,7 @@ export default function CatererDetail() {
             <div className="text-gray-200 text-base md:text-lg mb-2">
               <span className="font-bold text-white">Location:</span> CaterNinja GravyTech Catering Ventures Pvt Ltd. NH-23, New Delhi-110045
             </div>
-            <button className="mt-2 md:mt-0 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-lg shadow transition text-lg w-fit self-start">BOOK BITE</button>
+            <button className="mt-2 md:mt-0 bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-lg shadow transition text-lg w-fit self-start cursor-pointer" onClick={handleBookBite}>BOOK BITE</button>
           </div>
         </div>
       </div>
@@ -67,6 +82,17 @@ export default function CatererDetail() {
           </div>
         </div>
       </div>
+      {/* Success Modal */}
+      {showSuccess && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+          <div className="bg-white text-black rounded-lg shadow-lg p-8 flex flex-col items-center">
+            <div className="text-3xl mb-2">🎉</div>
+            <div className="font-bold text-lg mb-2">Order Successful!</div>
+            <div className="text-gray-700 mb-4">Your booking has been placed. Check your dashboard for details.</div>
+            <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded" onClick={() => setShowSuccess(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 

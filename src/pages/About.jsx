@@ -1,6 +1,35 @@
 import { motion } from "framer-motion";
+import QuoteForm from '../components/QuoteForm.jsx';
+import React, { useState } from 'react';
+import catererData from '../data/catererData';
 
 function About() {
+  const [showQuote, setShowQuote] = useState(false);
+
+  // Filtering logic for QuoteForm (same as Home)
+  function filterCaterers(criteria) {
+    return catererData.filter(c => {
+      let match = true;
+      if (criteria.cuisine && criteria.cuisine.length) {
+        match = match && criteria.cuisine.some(cui => c.specialty.includes(cui));
+      }
+      if (criteria.location) {
+        match = match && c.location === criteria.location;
+      }
+      if (criteria.dishType) {
+        if (criteria.dishType === 'Veg Only') match = match && c.type === 'Veg Only';
+        else if (criteria.dishType === 'Non-Veg Only') match = match && c.type !== 'Veg Only';
+      }
+      if (criteria.serviceType) {
+        match = match && c.serviceType.includes(criteria.serviceType);
+      }
+      if (criteria.budget) {
+        // No strict filter, but could be added
+      }
+      return match;
+    });
+  }
+
   return (
     <>
       {/* Hero Section with background image */}
@@ -35,6 +64,7 @@ function About() {
           </motion.p>
           <motion.button
             className="bg-orange-600 text-lg sm:text-xl font-bold text-white py-3 px-8 rounded-md shadow hover:bg-orange-700 mb-0 transition"
+            onClick={() => setShowQuote(true)}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.7, ease: 'easeOut' }}
@@ -102,6 +132,15 @@ function About() {
         </motion.div>
         
       </section>
+      {/* Quote Modal */}
+      {showQuote && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
+          <div className="relative bg-white text-black rounded-lg shadow-lg p-4 md:p-8 w-full max-w-lg mx-auto">
+            <button className="absolute top-2 right-2 text-gray-500 hover:text-orange-500 text-2xl font-bold" onClick={() => setShowQuote(false)}>&times;</button>
+            <QuoteForm caterers={catererData} filterCaterers={filterCaterers} />
+          </div>
+        </div>
+      )}
     </>
   );
 }
