@@ -63,7 +63,7 @@ function About() {
             At <span className="font-bold text-orange-400">BITEBOOKED</span>, we believe food is more than just a necessity — it's an experience. We are a community-driven platform connecting local caterers with customers looking for delicious, reliable, and personalized food services for their events.
           </motion.p>
           <motion.button
-            className="bg-orange-600 text-lg sm:text-xl font-bold text-white py-3 px-8 rounded-md shadow hover:bg-orange-700 mb-0 transition"
+            className="bg-orange-600 text-lg sm:text-xl font-bold text-white py-3 px-8 rounded-md shadow hover:bg-orange-700 mb-0 transition cursor-pointer"
             onClick={() => setShowQuote(true)}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
