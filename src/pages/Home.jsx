@@ -30,15 +30,15 @@ function Home() {
       >
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         <motion.div
-          className="flex flex-col items-center justify-center text-center px-2 sm:px-4 gap-3 z-20 relative w-full pt-40"
+          className="flex flex-col items-center justify-center text-center px-2 sm:px-4 gap-3 z-20 relative w-full  pt-1 sm:pt-12"
           style={{ minHeight: '70vh' }}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
         >
-          {/* Responsive margin top for hero section */}
+          
           <div className="mt-12 sm:mt-24 md:mt-36 lg:mt-[-450px]" />
-          {/* Search bar only (no filter icon) */}
+          
           <motion.form
             className="flex items-center bg-white text-black rounded-full px-2 sm:px-4 py-2 mb-6 shadow-md gap-2 sm:gap-4 w-full max-w-[95vw] sm:max-w-lg relative"
             onSubmit={handleSearchSubmit}
@@ -55,7 +55,7 @@ function Home() {
               onChange={e => setSearchTerm(e.target.value)}
             />
           </motion.form>
-          {/* Headings, now responsive */}
+          
           <motion.h1
             className="text-2xl sm:text-4xl font-bold mb-2 sm:mb-4 text-orange-500 drop-shadow"
             initial={{ opacity: 0, y: 20 }}
@@ -80,7 +80,7 @@ function Home() {
           >
             “Book a Bite, Make it Right.”
           </motion.p>
-          {/* Responsive button */}
+          
           <motion.button
             className="bg-orange-500 text-white px-6 py-2 sm:px-8 sm:py-2 rounded-md cursor-pointer mt-4 text-base sm:text-lg font-semibold shadow hover:bg-orange-600 transition"
             onClick={() => setShowQuoteModal(true)}
