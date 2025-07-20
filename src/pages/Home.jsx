@@ -37,7 +37,7 @@ function Home() {
           transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
         >
           
-          <div className="mt-12 sm:mt-24 md:mt-36 lg:mt-[-450px]" />
+          <div className="mt-12 sm:mt-12 md:mt-36 lg:mt-[-450px]" />
           
           <motion.form
             className="flex items-center bg-white text-black rounded-full px-2 sm:px-4 py-2 mb-6 shadow-md gap-2 sm:gap-4 w-full max-w-[95vw] sm:max-w-lg relative"

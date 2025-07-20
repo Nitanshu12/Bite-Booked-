@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { button } from "framer-motion/client";
 
 function Header({ userName, userAvatar, onLoginClick, onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,13 +31,17 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
       </button>
       {menuOpen && (
         <div className="fixed inset-0 bg-black/80 z-40 flex flex-col items-center justify-center md:hidden animate-fade-in">
-          <nav className="flex flex-col gap-8 text-white text-xl font-semibold">
+          <nav className="flex flex-col gap-8 text-white text-xl font-semibold" style={{
+            textAlign:'center'
+          }}>
             <Link to="/" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>Home</Link>
             <Link to="/about" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>About</Link>
             <Link to="/caterers" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>Caterers</Link>
             <Link to="/contact" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>Contact</Link>
             {userName && (
-              <Link to="/dashboard" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+              <button>
+                <Link to="/dashboard" className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+              </button>
             )}
           </nav>
           <div className="mt-10 flex flex-col items-center gap-3">
@@ -46,7 +51,7 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
             ) : userName ? (
               <>
                 {userAvatar && <img src={userAvatar} alt={userName} className="w-12 h-12 rounded-full border-2 border-orange-500 shadow mb-2" />}
-                <span className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium shadow mb-2">{userName}</span>
+                <span className="bg-orange-500 text-white px-5 py-2 rounded-full font-medium shadow mb-2">{userName}</span>
                 <button onClick={() => { setMenuOpen(false); onLogout(); }} className="text-red-400 font-medium hover:underline">Logout</button>
               </>
             ) : (
