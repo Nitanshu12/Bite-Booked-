@@ -24,19 +24,18 @@ const Caterers = () => {
   const [selectedPrice, setSelectedPrice] = useState('Any Price');
   const location = useLocation();
 
-  // If navigated from QuoteForm, get filtered caterers and criteria from state
+
   const filteredFromState = location.state?.filtered;
   const criteria = location.state?.criteria;
 
-  // Wishlist state
+
   const [wishlist, setWishlist] = useState(() => {
     return JSON.parse(localStorage.getItem('wishlistCaterers') || '[]');
   });
 
-  // Helper to check if caterer is in wishlist
   const isWishlisted = (caterer) => wishlist.some(c => c.id === caterer.id);
 
-  // Toggle wishlist
+  
   const toggleWishlist = (caterer) => {
     let updated;
     if (isWishlisted(caterer)) {
@@ -55,18 +54,18 @@ const Caterers = () => {
     }
   }, [searchParams]);
 
-  // Filtering logic for recommendations
+
   const getFilteredCaterers = () => {
     let data = catererData;
-    // If coming from QuoteForm and no filters/search are active, use filteredFromState
+    
     if (filteredFromState && !searchTerm && selectedCuisine === 'All Cuisines' && selectedRating === 'Any Rating' && selectedPrice === 'Any Price') {
       data = filteredFromState;
     }
-    // Otherwise, filter based on search/filters
+   
     else {
       data = catererData.filter(caterer => {
         let match = true;
-        // Search term
+    
         if (searchTerm) {
           match = match && (
             caterer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -74,16 +73,16 @@ const Caterers = () => {
             caterer.specialty.some(s => s.toLowerCase().includes(searchTerm.toLowerCase()))
           );
         }
-        // Cuisine
+        
         if (selectedCuisine !== 'All Cuisines') {
           match = match && caterer.specialty.map(s => s.toLowerCase()).includes(selectedCuisine.toLowerCase());
         }
-        // Rating
+        
         if (selectedRating !== 'Any Rating') {
           const minRating = parseFloat(selectedRating.split(' ')[0]);
           match = match && caterer.rating >= minRating;
         }
-        // Price
+       
         if (selectedPrice !== 'Any Price') {
           match = match && caterer.priceRange === selectedPrice;
         }
@@ -95,7 +94,7 @@ const Caterers = () => {
 
   const recommendations = getFilteredCaterers().slice(0, 3);
 
-  // Top caterers in location: next 3 filtered by location from criteria
+  
   let locationCaterers = [];
   if (criteria && criteria['Location for event']) {
     locationCaterers = catererData.filter(
@@ -105,7 +104,7 @@ const Caterers = () => {
     locationCaterers = catererData.filter(c => c.location.toLowerCase() === 'patiala').slice(0, 3);
   }
 
-  // Special Offers: 3 random caterers (excluding those already shown)
+ 
   const shownIds = new Set([
     ...recommendations.map(c => c.id),
     ...locationCaterers.map(c => c.id),
@@ -113,7 +112,6 @@ const Caterers = () => {
   const specialOfferPool = catererData.filter(c => !shownIds.has(c.id));
   const specialOffers = getRandomItems(specialOfferPool, 3);
 
-  // Card component for reuse
   const CatererCard = ({ caterer }) => (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -122,7 +120,7 @@ const Caterers = () => {
       whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,140,0,0.15)' }}
       className="h-full relative"
     >
-      {/* Heart icon */}
+      
       <button
         className={`absolute top-3 right-3 z-20 bg-black/60 rounded-full p-2 transition-all duration-150 ${isWishlisted(caterer) ? 'text-orange-500' : 'text-gray-300 hover:text-orange-400'}`}
         onClick={e => { e.preventDefault(); toggleWishlist(caterer); }}
@@ -175,7 +173,7 @@ const Caterers = () => {
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
       <div className="relative z-10 min-h-screen text-white pt-24 pb-12 px-2 md:px-0">
-        {/* Search and filters */}
+        
         <motion.section
           className="py-4"
           initial={{ opacity: 0, y: 30 }}
@@ -202,7 +200,7 @@ const Caterers = () => {
               </div>
               <button
                 type="button"
-                className={`absolute inset-y-0 right-0 pr-4 flex items-center ${showFilters ? 'text-orange-500' : ''}`}
+                className={`absolute inset-y-0 right-0 pr-4 flex items-center ${showFilters ? 'text-orange-500' : 'text-orange-400'} cursor-pointer `}
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <SlidersHorizontal className="h-5 w-5" />
@@ -249,7 +247,7 @@ const Caterers = () => {
             </AnimatePresence>
           </div>
         </motion.section>
-        {/* Recommendations */}
+        
         <motion.section
           className="max-w-5xl mx-auto mb-10"
           initial={{ opacity: 0, y: 30 }}
@@ -265,7 +263,7 @@ const Caterers = () => {
             )}
           </div>
         </motion.section>
-        {/* Top caterers in location */}
+        
         <motion.section
           className="max-w-5xl mx-auto mb-10"
           initial={{ opacity: 0, y: 30 }}
@@ -281,7 +279,7 @@ const Caterers = () => {
             )}
           </div>
         </motion.section>
-        {/* Special Offers */}
+        
         <motion.section
           className="max-w-5xl mx-auto mb-10"
           initial={{ opacity: 0, y: 30 }}

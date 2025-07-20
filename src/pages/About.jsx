@@ -6,7 +6,7 @@ import catererData from '../data/catererData';
 function About() {
   const [showQuote, setShowQuote] = useState(false);
 
-  // Filtering logic for QuoteForm (same as Home)
+
   function filterCaterers(criteria) {
     return catererData.filter(c => {
       let match = true;
@@ -24,7 +24,7 @@ function About() {
         match = match && c.serviceType.includes(criteria.serviceType);
       }
       if (criteria.budget) {
-        // No strict filter, but could be added
+       
       }
       return match;
     });
@@ -32,7 +32,7 @@ function About() {
 
   return (
     <>
-      {/* Hero Section with background image */}
+      
       <section
         className="relative w-full"
         style={{
@@ -73,7 +73,7 @@ function About() {
           </motion.button>
         </div>
       </section>
-      {/* Cards Section with solid black background */}
+      
       <section className="w-full bg-black pb-16 pt-8">
         <motion.div
           className="w-full max-w-6xl mx-auto flex flex-col md:flex-row justify-between gap-8 mb-8 px-4"
@@ -86,7 +86,7 @@ function About() {
             }
           }}
         >
-          {/* Card 1 */}
+          
           <motion.div
             className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto w-full"
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
@@ -103,20 +103,20 @@ function About() {
               <li>Trusted by hundreds of happy clients</li>
             </ul>
           </motion.div>
-          {/* Card 2 */}
+          
           <motion.div
             className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto w-full"
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-orange-600 mb-2 text-center underline underline-offset-4 decoration-2 decoration-orange-600">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-orange-600 mb-2 text-center underline-offset-4 decoration-2 decoration-orange-600">
               Our Mission
             </h2>
             <p className="text-black text-base sm:text-lg text-left">
               To make event catering effortless by helping users discover and book the best local caterers in their area — no hassle, no stress, just great food.
             </p>
           </motion.div>
-          {/* Card 3 */}
+         
           <motion.div
             className="bg-white rounded-md shadow-lg p-6 flex-1 min-w-[260px] max-w-md mx-auto w-full"
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
@@ -132,7 +132,7 @@ function About() {
         </motion.div>
         
       </section>
-      {/* Quote Modal */}
+      
       {showQuote && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
           <div className="relative bg-white text-black rounded-lg shadow-lg p-4 md:p-8 w-full max-w-lg mx-auto">

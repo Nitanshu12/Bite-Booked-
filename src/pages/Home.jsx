@@ -30,7 +30,7 @@ function Home() {
       >
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         <motion.div
-          className="flex flex-col items-center justify-center text-center px-2 sm:px-4 gap-3 z-20 relative w-full  pt-1 sm:pt-12"
+          className="flex flex-col items-center justify-center text-center px-2 sm:px-4 gap-3 z-20 relative w-full pt-30"
           style={{ minHeight: '70vh' }}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,7 +85,7 @@ function Home() {
             className="bg-orange-500 text-white px-6 py-2 sm:px-8 sm:py-2 rounded-md cursor-pointer mt-4 text-base sm:text-lg font-semibold shadow hover:bg-orange-600 transition"
             onClick={() => setShowQuoteModal(true)}
             initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: 1, x: -10 }}
             transition={{ delay: 0.7, duration: 0.7, ease: 'easeOut',scrollBehavior:'smooth' }}
           >
             Request a Quote
