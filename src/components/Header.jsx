@@ -10,7 +10,7 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
       backgroundColor: "#121111"
     }}>
       <Link to="/" className="flex items-center gap-3 group focus:outline-none">
-        <img src="/images/logo.jpeg" className="w-10 h-10" alt="Logo" />
+        <img src="/images/Logo.svg" className="w-10 h-10" alt="Logo" />
         <h1 className="text-2xl font-bold text-orange-600">BITEBOOKED</h1>
       </Link>
 
