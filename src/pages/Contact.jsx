@@ -10,7 +10,7 @@ function Contact() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
     >
-      {/* Background overlay */}
+    
       <div className="absolute inset-0 z-0">
         <img
           src="/images/Group 14.png"

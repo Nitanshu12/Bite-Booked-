@@ -30,7 +30,7 @@ function Home() {
       >
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         <motion.div
-          className="flex flex-col items-center justify-center text-center px-2 sm:px-4 gap-3 z-20 relative w-full pt-30"
+          className="flex flex-col items-center justify-center text-center px-2 sm:px-4 gap-3 z-20 relative w-full pt-20"
           style={{ minHeight: '70vh' }}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}

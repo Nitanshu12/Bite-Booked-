@@ -29,6 +29,10 @@ function AuthModal({ onClose, onSignup }) {
       setError("Please enter your phone number.");
       return;
     }
+    if (!email.trim()) {
+      setError("Please enter your email.");
+      return;
+    }
     setError("");
     onSignup(name.trim());
   };

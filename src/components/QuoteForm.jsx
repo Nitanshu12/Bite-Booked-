@@ -63,7 +63,7 @@ export default function QuoteForm({ caterers, filterCaterers }) {
     if (step < questions.length - 1) {
       setStep(step + 1);
     } else {
-      // Final step: filter caterers and redirect
+      
       const filteredList = filterCaterers({ ...answers, [key]: value });
       navigate("/caterers", {
         state: { filtered: filteredList, criteria: { ...answers, [key]: value } }
@@ -118,7 +118,7 @@ export default function QuoteForm({ caterers, filterCaterers }) {
   );
 }
 
-// Multi-select helper component
+
 function MultiSelectOptions({ q, answers, onNext }) {
   const [selected, setSelected] = useState(answers[q.key] || []);
 

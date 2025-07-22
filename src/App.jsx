@@ -108,7 +108,7 @@ function App() {
   );
 }
 
-// Manual signup form component
+
 function ManualSignupForm({ onSignup }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

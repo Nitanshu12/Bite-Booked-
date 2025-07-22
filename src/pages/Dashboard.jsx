@@ -14,15 +14,15 @@ export default function Dashboard() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    // Function to update from localStorage
+    
     const updateFromStorage = () => {
       setWishlist(getWishlist());
       setOrders(getOrders());
     };
     updateFromStorage();
-    // Listen for storage changes (cross-tab)
+    
     window.addEventListener('storage', updateFromStorage);
-    // Optionally, poll every second for robustness
+   
     const interval = setInterval(updateFromStorage, 1000);
     return () => {
       window.removeEventListener('storage', updateFromStorage);
@@ -51,7 +51,7 @@ export default function Dashboard() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-orange-400">Your Wishlist</h2>
-              <button onClick={() => setWishlist(getWishlist())} className="text-xs bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">Refresh</button>
+              {/* <button onClick={() => setWishlist(getWishlist())} className="text-xs bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">Refresh</button> */}
             </div>
             {wishlist.length === 0 ? (
               <div className="text-gray-400">No caterers in your wishlist yet.</div>
@@ -74,7 +74,7 @@ export default function Dashboard() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-orange-400">Your Orders</h2>
-              <button onClick={() => setOrders(getOrders())} className="text-xs bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">Refresh</button>
+              {/* <button onClick={() => setOrders(getOrders())} className="text-xs bg-orange-500 text-white px-3 py-1 rounded hover:bg-orange-600 transition">Refresh</button> */}
             </div>
             {orders.length === 0 ? (
               <div className="text-gray-400">No orders yet.</div>
