@@ -21,7 +21,7 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
         <Link to="/contact" className="hover:text-orange-600 font-medium">Contact</Link>
       </nav>
       <button
-        className="md:hidden flex flex-col justify-center items-center w-10 h-10 text-white focus:outline-none z-50"
+        className="md:hidden flex flex-col justify-center items-center w-10 h-10 text-white focus:outline-none z-50 cursor-pointer"
         onClick={() => setMenuOpen((open) => !open)}
         aria-label="Open menu"
       >
@@ -57,7 +57,7 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
             ) : (
               <button
                 onClick={() => { setMenuOpen(false); onLoginClick(); }}
-                className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition"
+                className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition cursor-pointer"
               >
                 Login
               </button>
@@ -99,7 +99,7 @@ function Header({ userName, userAvatar, onLoginClick, onLogout }) {
         ) : (
           <button
             onClick={onLoginClick}
-            className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition"
+            className="bg-orange-600 text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition cursor-pointer"
           >
             Login
           </button>

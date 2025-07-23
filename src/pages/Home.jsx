@@ -1,117 +1,118 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { Search } from 'lucide-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import QuoteForm from '../components/QuoteForm.jsx';
-import catererData from '../data/catererData';
+
+import QuoteForm from "../components/QuoteForm.jsx";
+import catererData from "../data/catererData";
 
 function Home() {
-  const [showQuoteModal, setShowQuoteModal] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
   const navigate = useNavigate();
 
-  const handleSearchSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/caterers?search=${encodeURIComponent(searchTerm.trim())}`);
+    if (searchInput.trim() !== "") {
+      navigate(`/caterers?search=${encodeURIComponent(searchInput.trim())}`);
     }
   };
 
   return (
     <>
       <motion.div
-        className="h-screen bg-cover bg-center flex flex-col items-center justify-center relative"
+        className="h-screen bg-center bg-cover flex flex-col justify-center items-center relative"
         style={{ backgroundImage: "url('/images/hero-bg.png')" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
+        transition={{ duration: 0.8 }}
       >
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
+        <div className="absolute inset-0 bg-black/60 z-10" />
+
         <motion.div
-          className="flex flex-col items-center justify-center text-center px-2 sm:px-4 gap-3 z-20 relative w-full pt-20"
+          className="text-center z-20 relative w-full px-4 flex flex-col justify-center items-center gap-3 pt-20"
           style={{ minHeight: '70vh' }}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
+          transition={{ delay: 0.2 }}
         >
-          
-          <div className="mt-12 sm:mt-12 md:mt-36 lg:mt-[-450px]" />
-          
+
           <motion.form
-            className="flex items-center bg-white text-black rounded-full px-2 sm:px-4 py-2 mb-6 shadow-md gap-2 sm:gap-4 w-full max-w-[95vw] sm:max-w-lg relative"
-            onSubmit={handleSearchSubmit}
+            onSubmit={handleSubmit}
+            className="flex items-center bg-white text-black px-4 py-2 rounded-full shadow-md w-full max-w-lg gap-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.7, ease: 'easeOut' }}
+            transition={{ delay: 0.3 }}
           >
             <Search className="h-5 w-5 text-gray-500" />
             <input
               type="text"
-              placeholder="Search Caterers by name or location..."
-              className="flex-1 outline-none border-none bg-transparent text-sm sm:text-base"
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
+              value={searchInput}
+              placeholder="Type location or name..."
+              onChange={(e) => setSearchInput(e.target.value)}
+              className="flex-1 outline-none bg-transparent text-sm sm:text-base"
             />
           </motion.form>
-          
+
           <motion.h1
-            className="text-2xl sm:text-4xl font-bold mb-2 sm:mb-4 text-orange-500 drop-shadow"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.7, ease: 'easeOut' }}
+            className="text-3xl sm:text-4xl font-bold text-orange-500 mt-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
           >
             BITEBOOKED
           </motion.h1>
           <motion.p
-            className="text-base sm:text-lg text-white font-medium"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.7, ease: 'easeOut' }}
+            className="text-white text-base sm:text-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
           >
             Your Event. Our Caterers. Perfectly Served.
           </motion.p>
           <motion.p
-            className="text-xs sm:text-sm mt-1 text-white opacity-90"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.7, ease: 'easeOut' }}
+            className="text-white text-xs sm:text-sm opacity-80"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.55 }}
           >
             “Book a Bite, Make it Right.”
           </motion.p>
-          
+
           <motion.button
-            className="bg-orange-500 text-white px-6 py-2 sm:px-8 sm:py-2 rounded-md cursor-pointer mt-4 text-base sm:text-lg font-semibold shadow hover:bg-orange-600 transition"
-            onClick={() => setShowQuoteModal(true)}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: -10 }}
-            transition={{ delay: 0.7, duration: 0.7, ease: 'easeOut',scrollBehavior:'smooth' }}
+            className="bg-orange-500 text-white px-6 py-2 rounded-md mt-4 hover:bg-orange-600 transition"
+            onClick={() => setShowModal(true)}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.7 }}
           >
             Request a Quote
           </motion.button>
         </motion.div>
       </motion.div>
+
       <AnimatePresence>
-        {showQuoteModal && (
+        {showModal && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            className="fixed inset-0 z-50 flex justify-center items-center bg-black/40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setShowQuoteModal(false)}
+            onClick={() => setShowModal(false)}
           >
             <motion.div
-              className="bg-white rounded-xl shadow-lg relative p-0 sm:p-6 w-full max-w-md mx-2"
+              className="bg-white p-4 sm:p-6 rounded-lg shadow-lg max-w-md w-full mx-4"
               initial={{ scale: 0.8, y: 100, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.8, y: 100, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              onClick={e => e.stopPropagation()}
+              transition={{ type: "spring", stiffness: 250, damping: 20 }}
+              onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-2 right-3 text-2xl text-orange-600 hover:text-orange-800"
-                onClick={() => setShowQuoteModal(false)}
+                className="absolute top-2 right-3 text-xl text-orange-600 hover:text-orange-800"
+                onClick={() => setShowModal(false)}
               >
                 ×
               </button>
