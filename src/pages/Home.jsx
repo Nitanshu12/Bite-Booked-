@@ -167,6 +167,97 @@ function Home() {
             ))}
           </div>
         </motion.div>
+
+        {/* Testimonials Section */}
+        <motion.div 
+          className="z-20 relative w-full px-4 pb-20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.0 }}
+        >
+          <motion.h2 
+            className="text-2xl sm:text-3xl font-bold text-white text-center mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1 }}
+          >
+            What Our Customers Say
+          </motion.h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Testimonial 1 */}
+            <motion.div
+              className="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-xl p-6 hover:shadow-2xl transition-all duration-300"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, type: "spring", stiffness: 100 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
+              <div className="flex flex-col h-full">
+                <div className="mb-4">
+                  <div className="flex text-orange-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-orange-500" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-300 italic mb-6 flex-grow">"BiteBooked made our wedding reception absolutely perfect! The caterer they matched us with understood exactly what we wanted and delivered beyond our expectations."</p>
+                <div className="mt-auto">
+                  <p className="text-orange-500 font-semibold">Priya & Rahul</p>
+                  <p className="text-gray-400 text-sm">Wedding in Delhi</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Testimonial 2 */}
+            <motion.div
+              className="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-xl p-6 hover:shadow-2xl transition-all duration-300"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.3, type: "spring", stiffness: 100 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
+              <div className="flex flex-col h-full">
+                <div className="mb-4">
+                  <div className="flex text-orange-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-orange-500" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-300 italic mb-6 flex-grow">"As a corporate event planner, I've worked with many catering services, but the options provided by BiteBooked are truly exceptional. Their platform saved me hours of research."</p>
+                <div className="mt-auto">
+                  <p className="text-orange-500 font-semibold">Vikram Singh</p>
+                  <p className="text-gray-400 text-sm">Corporate Event in Mumbai</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Testimonial 3 */}
+            <motion.div
+              className="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-xl p-6 hover:shadow-2xl transition-all duration-300"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.4, type: "spring", stiffness: 100 }}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
+              <div className="flex flex-col h-full">
+                <div className="mb-4">
+                  <div className="flex text-orange-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-orange-500" />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-300 italic mb-6 flex-grow">"The variety of cuisine options available through BiteBooked is impressive. We found the perfect caterer for our family reunion, and everyone is still talking about the food!"</p>
+                <div className="mt-auto">
+                  <p className="text-orange-500 font-semibold">Anita Patel</p>
+                  <p className="text-gray-400 text-sm">Family Reunion in Bangalore</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
       </motion.div>
 
       <AnimatePresence>
@@ -179,7 +270,7 @@ function Home() {
             onClick={() => setShowModal(false)}
           >
             <motion.div
-              className="bg-white p-4 sm:p-6 rounded-lg shadow-lg max-w-md w-full mx-4"
+              className="bg-white p-4 sm:p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative"
               initial={{ scale: 0.8, y: 100, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{ scale: 0.8, y: 100, opacity: 0 }}
@@ -187,8 +278,11 @@ function Home() {
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-2 right-3 text-xl text-orange-600 hover:text-orange-800"
-                onClick={() => setShowModal(false)}
+                className="absolute top-2 right-3 text-xl text-orange-600 hover:text-orange-800 z-10"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowModal(false);
+                }}
               >
                 ×
               </button>

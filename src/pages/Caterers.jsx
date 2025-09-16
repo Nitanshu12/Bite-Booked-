@@ -190,7 +190,7 @@ const Caterers = () => {
           <div className="max-w-6xl mx-auto">
             <motion.form
               onSubmit={e => { e.preventDefault(); }}
-              className="flex items-center bg-white text-black px-4 py-3 rounded-full shadow-lg max-w-2xl mx-auto mb-8"
+              className="flex items-center bg-white text-black px-4 py-3 rounded-full shadow-lg max-w-2xl mx-auto mb-8 relative"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
@@ -206,7 +206,7 @@ const Caterers = () => {
               />
               <motion.button
                 type="button"
-                className={`absolute inset-y-0 right-0 pr-4 flex items-center ${showFilters ? 'text-orange-500' : 'text-orange-400'} cursor-pointer `}
+                className={`flex items-center ${showFilters ? 'text-orange-500' : 'text-orange-400'} cursor-pointer ml-2`}
                 onClick={() => setShowFilters(!showFilters)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
