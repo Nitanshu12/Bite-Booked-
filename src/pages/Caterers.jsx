@@ -16,7 +16,7 @@ const ratingOptions = ['Any Rating', '4.5 & Above', '4.0 & Above', '3.5 & Above'
 const priceOptions = ['Any Price', 'Budget', 'Mid-range', 'Premium'];
 
 const Caterers = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
   const [showFilters, setShowFilters] = useState(false);
   const [selectedCuisine, setSelectedCuisine] = useState('All Cuisines');
@@ -114,44 +114,51 @@ const Caterers = () => {
 
   const CatererCard = ({ caterer }) => (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(255,140,0,0.15)' }}
-      className="h-full relative"
+      transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+      whileHover={{ y: -10, scale: 1.02 }}
+      className="relative"
     >
-      
       <button
-        className={`absolute top-3 right-3 z-20 bg-black/60 rounded-full p-2 transition-all duration-150 ${isWishlisted(caterer) ? 'text-orange-500' : 'text-gray-300 hover:text-orange-400'}`}
+        className={`absolute top-2 right-2 z-20 bg-black/60 rounded-full p-2 transition-all duration-150 ${isWishlisted(caterer) ? 'text-orange-500' : 'text-gray-300 hover:text-orange-400'}`}
         onClick={e => { e.preventDefault(); toggleWishlist(caterer); }}
         aria-label={isWishlisted(caterer) ? 'Remove from wishlist' : 'Add to wishlist'}
       >
-        <Heart fill={isWishlisted(caterer) ? '#f97316' : 'none'} strokeWidth={2.2} className="w-6 h-6" />
+        <Heart fill={isWishlisted(caterer) ? '#f97316' : 'none'} strokeWidth={2.2} className="w-5 h-5" />
       </button>
-      <Link to={`/caterers/${caterer.id}`} className="group h-full block">
-        <div className="rounded-lg overflow-hidden h-full hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 bg-[#4F4E4E] flex flex-col">
-          <div className="h-40 bg-gray-700 relative flex items-center justify-center">
-            <img src={caterer.logo} alt={caterer.name} className="w-full h-full object-cover" />
-          </div>
-          <div className="p-4 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 className="text-lg font-semibold mb-2 group-hover:text-orange-500 transition-colors text-orange-400">{caterer.name}</h3>
-              <div className="flex items-center mb-2 text-sm">
-                <Star className="h-4 w-4 text-yellow-400 mr-1" />
-                <span className="text-gray-800">{caterer.rating}</span>
-              </div>
-              <div className="flex items-center text-gray-500 text-sm mb-2">
-                <MapPin className="h-4 w-4 mr-1" />
-                <span>{caterer.location}</span>
-              </div>
-            </div>
-            <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
-              <span className="text-xs text-gray-500">{caterer.specialty.join(', ')}</span>
-              <span className="text-orange-500 text-sm">more &rsaquo;</span>
-            </div>
+      <div className="bg-white/10 backdrop-blur-sm rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300">
+        <div className="relative h-48 bg-orange-100">
+          <img src={caterer.logo} alt={caterer.name} className="w-full h-full object-cover" />
+          <div className="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center">
+            <Star className="h-3 w-3 mr-1 fill-white" />
+            {caterer.rating}
           </div>
         </div>
-      </Link>
+        <div className="p-4 text-white">
+          <h3 className="text-xl font-bold text-orange-500">{caterer.name}</h3>
+          <div className="flex items-center text-sm mt-1 text-gray-300">
+            <MapPin className="h-4 w-4 mr-1" />
+            {caterer.location}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-1">
+            {caterer.specialty.slice(0, 2).map((spec, i) => (
+              <span key={i} className="text-xs bg-orange-500/20 text-orange-300 px-2 py-1 rounded-full">
+                {spec}
+              </span>
+            ))}
+          </div>
+          <Link to={`/caterers/${caterer.id}`}>
+            <motion.button 
+              className="w-full mt-4 bg-orange-500 text-white py-2 rounded-md text-sm hover:bg-orange-600 transition"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              more ›
+            </motion.button>
+          </Link>
+        </div>
+      </div>
     </motion.div>
   );
 
@@ -172,75 +179,81 @@ const Caterers = () => {
         />
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
-      <div className="relative z-10 min-h-screen text-white pt-24 pb-12 px-2 md:px-0">
+      <div className="relative z-10 min-h-screen text-white pt-16 pb-12 px-4 md:px-6">
         
         <motion.section
-          className="py-4"
+          className="py-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.7, ease: 'easeOut' }}
         >
-          <div className="max-w-5xl mx-auto px-2 md:px-0">
+          <div className="max-w-6xl mx-auto">
             <motion.form
               onSubmit={e => { e.preventDefault(); }}
-              className="relative rounded-full overflow-hidden shadow-lg max-w-2xl mx-auto mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
+              className="flex items-center bg-white text-black px-4 py-3 rounded-full shadow-lg max-w-2xl mx-auto mb-8"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+              whileHover={{ boxShadow: "0 8px 20px rgba(0,0,0,0.2)" }}
             >
+              <Search className="h-5 w-5 text-orange-500 mr-2" />
               <input
                 type="text"
                 placeholder="Search caterers by name or location..."
-                className="w-full py-3 pl-12 pr-12 bg-white text-black border border-gray-700 focus:outline-none focus:border-orange-500"
+                className="flex-1 outline-none bg-transparent text-sm sm:text-base"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-500" />
-              </div>
-              <button
+              <motion.button
                 type="button"
                 className={`absolute inset-y-0 right-0 pr-4 flex items-center ${showFilters ? 'text-orange-500' : 'text-orange-400'} cursor-pointer `}
                 onClick={() => setShowFilters(!showFilters)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <SlidersHorizontal className="h-5 w-5" />
-              </button>
+              </motion.button>
             </motion.form>
             <AnimatePresence>
               {showFilters && (
                 <motion.div
-                  className="mt-4 p-4 rounded-lg max-w-2xl mx-auto"
-                  style={{ backgroundColor: '#2D2D2D' }}
+                  className="mt-4 p-6 rounded-lg max-w-2xl mx-auto shadow-xl"
+                  style={{ backgroundColor: 'rgba(45, 45, 45, 0.9)' }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-1">Cuisine Type</label>
-                      <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md" value={selectedCuisine} onChange={e => setSelectedCuisine(e.target.value)}>
+                      <label className="block text-sm font-medium text-orange-300 mb-2">Cuisine Type</label>
+                      <select className="w-full p-3 bg-black/30 border border-orange-500/30 rounded-md text-white focus:outline-none focus:border-orange-500 transition-colors" value={selectedCuisine} onChange={e => setSelectedCuisine(e.target.value)}>
                         <option>All Cuisines</option>
                         {cuisineOptions.map(opt => <option key={opt}>{opt}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-1">Rating</label>
-                      <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md" value={selectedRating} onChange={e => setSelectedRating(e.target.value)}>
+                      <label className="block text-sm font-medium text-orange-300 mb-2">Rating</label>
+                      <select className="w-full p-3 bg-black/30 border border-orange-500/30 rounded-md text-white focus:outline-none focus:border-orange-500 transition-colors" value={selectedRating} onChange={e => setSelectedRating(e.target.value)}>
                         {ratingOptions.map(opt => <option key={opt}>{opt}</option>)}
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-1">Price Range</label>
-                      <select className="w-full p-2 bg-gray-700 border border-gray-600 rounded-md" value={selectedPrice} onChange={e => setSelectedPrice(e.target.value)}>
+                      <label className="block text-sm font-medium text-orange-300 mb-2">Price Range</label>
+                      <select className="w-full p-3 bg-black/30 border border-orange-500/30 rounded-md text-white focus:outline-none focus:border-orange-500 transition-colors" value={selectedPrice} onChange={e => setSelectedPrice(e.target.value)}>
                         {priceOptions.map(opt => <option key={opt}>{opt}</option>)}
                       </select>
                     </div>
                   </div>
-                  <div className="mt-4 flex justify-end">
-                    <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md" onClick={() => setShowFilters(false)}>
+                  <div className="mt-6 flex justify-end">
+                    <motion.button 
+                      className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md" 
+                      onClick={() => setShowFilters(false)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
                       Close Filters
-                    </button>
+                    </motion.button>
                   </div>
                 </motion.div>
               )}
@@ -249,13 +262,20 @@ const Caterers = () => {
         </motion.section>
         
         <motion.section
-          className="max-w-5xl mx-auto mb-10"
+          className="max-w-6xl mx-auto mb-10"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
         >
-          <h2 className="text-lg md:text-xl font-semibold mb-4 md:mb-6">Recommendations:</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.h2 
+            className="text-2xl sm:text-3xl font-bold text-white text-center mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Recommendations
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {recommendations.length === 0 ? (
               <div className="col-span-3 text-center text-gray-300">No recommendations found.</div>
             ) : (
@@ -265,13 +285,20 @@ const Caterers = () => {
         </motion.section>
         
         <motion.section
-          className="max-w-5xl mx-auto mb-10"
+          className="max-w-6xl mx-auto mb-10"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.7, ease: 'easeOut' }}
         >
-          <h2 className="text-lg md:text-xl font-semibold mb-4 md:mb-6">Top caterers in {criteria && criteria['Location for event'] ? criteria['Location for event'] : 'Patiala'}:</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.h2 
+            className="text-2xl sm:text-3xl font-bold text-white text-center mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Top caterers in {criteria && criteria['Location for event'] ? criteria['Location for event'] : 'Patiala'}
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {locationCaterers.length === 0 ? (
               <div className="col-span-3 text-center text-gray-300">No caterers found for this location.</div>
             ) : (
@@ -281,13 +308,20 @@ const Caterers = () => {
         </motion.section>
         
         <motion.section
-          className="max-w-5xl mx-auto mb-10"
+          className="max-w-6xl mx-auto mb-10"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.7, ease: 'easeOut' }}
         >
-          <h2 className="text-lg md:text-xl font-semibold mb-4 md:mb-6">Special Offers:</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.h2 
+            className="text-2xl sm:text-3xl font-bold text-white text-center mb-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            Special Offers
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {specialOffers.length === 0 ? (
               <div className="col-span-3 text-center text-gray-300">No special offers at the moment.</div>
             ) : (

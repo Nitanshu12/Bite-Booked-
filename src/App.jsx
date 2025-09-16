@@ -5,6 +5,7 @@ import About from './pages/About.jsx';
 import Caterers from './pages/Caterers.jsx';
 import Contact from './pages/Contact.jsx';
 import Header from './components/Header.jsx';
+import Footer from './components/Footer.jsx';
 import { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
@@ -46,16 +47,19 @@ function App() {
 
   return (
     <>
-      <div className={showModal && !user ? 'pointer-events-none select-none' : ''}>
+      <div className={`${showModal && !user ? 'pointer-events-none select-none' : ''} flex flex-col min-h-screen`}>
         <Header userName={user?.name} userAvatar={user?.avatar} onLoginClick={() => setShowModal(true)} onLogout={handleLogout} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/caterers" element={<Caterers />} />
-          <Route path="/caterers/:id" element={<CatererDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path='/dashboard' element={<Dashboard/>}/>
-        </Routes>
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/caterers" element={<Caterers />} />
+            <Route path="/caterers/:id" element={<CatererDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path='/dashboard' element={<Dashboard/>}/>
+          </Routes>
+        </main>
+        <Footer />
       </div>
       {showModal && !user && (
         <>
