@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, SlidersHorizontal, Star, Heart } from 'lucide-react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import catererData from '../data/catererData';
 
